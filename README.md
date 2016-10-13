@@ -11,7 +11,7 @@ Time spent: `<Number of hours spent>`
 - [x] Completed Requireds marked with `[x]`
 - [ ] Walkthrough Gif embedded in README
 - [ ] README `Time spent:` includes the number of hours spent on the assignment
-- [ ] `echo.js` prints the first argument to stdout
+- [x] `echo.js` prints the first argument to stdout
 - [ ] `cat.js` prints the contents of the first argument to stdout
 - [ ] `touch.js` updates the modified date of the first argument
 - [ ] `ls.js` recursively lists the files of the first argument

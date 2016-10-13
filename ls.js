@@ -1,26 +1,38 @@
 #!./node_modules/.bin/babel-node
 
 require('./helper')
-let fs = require('fs').promise;
+const fs = require('fs').promise;
+const { dir } = require('yargs')
+            .default('dir', __dirname)
+            .argv
+const path = require('path');
 
-function readFileByDir(dir) {
-  fs.readdir(dir).then( (files) => {
-    console.log(files.join(" "));
-  }, (errors) => {
-    console.log(errors);
-  })
-}
-
-function readFileByDirRecursive() {
-
-}
-
-async function ls() {
-    if (process.argv[2] === undefined) {
-      await readFileByDir(__dirname);
-    } else {
-      await readFileByDir(process.argv[2]);
+function blockPath(filePath) {
+  const BLOCKS = ['node_modules'];
+  for (const block of BLOCKS) {
+    if (filePath.includes(block)) {
+      return true;
     }
+  }
+  return false;
 }
 
-ls()
+async function ls(dirname) {
+  const fileNames = await fs.readdir(dirname);
+
+  for (const fileName of fileNames) {
+    const filePath = path.join(dirname, fileName);
+    const stat = await fs.stat(filePath);
+    if (!stat.isDirectory() || blockPath(filePath)) {
+      console.log(filePath);
+    } else {
+      await ls(filePath);
+    }
+  }
+}
+
+async function main() {
+  await ls(dir);
+}
+
+main();
