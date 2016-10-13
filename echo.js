@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!./node_modules/.bin/babel-node
 
 require('./helper')
 let fs = require('fs').promise
@@ -6,7 +6,11 @@ let fs = require('fs').promise
 async function echo() {
     // Use 'await' in here
     // Your implementation here
-    console.log(await fs.readFile(__filename, console.log))
+    if (process.argv[2] !== undefined) {
+      console.log(process.argv.splice(2).join(" "))
+    }else{
+      console.log("\n");
+    }
 }
 
 echo()
