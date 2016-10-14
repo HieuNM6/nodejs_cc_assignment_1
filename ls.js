@@ -2,7 +2,7 @@
 
 require('./helper')
 const fs = require('fs').promise;
-const { dir } = require('yargs')
+const { dir, R } = require('yargs')
             .default('dir', __dirname)
             .argv
 const path = require('path');
@@ -23,10 +23,12 @@ async function ls(dirname) {
   for (const fileName of fileNames) {
     const filePath = path.join(dirname, fileName);
     const stat = await fs.stat(filePath);
-    if (!stat.isDirectory() || blockPath(filePath)) {
+    if (!stat.isDirectory() || blockPath(filePath )) {
       console.log(filePath);
     } else {
-      await ls(filePath);
+      if ( R !== undefined ) {
+        await ls(filePath);
+      }
     }
   }
 }
