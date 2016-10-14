@@ -23,12 +23,10 @@ async function ls(dirname) {
   for (const fileName of fileNames) {
     const filePath = path.join(dirname, fileName);
     const stat = await fs.stat(filePath);
-    if (!stat.isDirectory() || blockPath(filePath )) {
+    if (!stat.isDirectory() || blockPath(filePath)) {
       console.log(filePath);
-    } else {
-      if ( R !== undefined ) {
-        await ls(filePath);
-      }
+    } else if (R !== undefined) {
+      await ls(filePath);
     }
   }
 }
