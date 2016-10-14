@@ -20,8 +20,8 @@ function blockPath(filePath) {
 async function ls(dirname) {
   let error = false;
   const fileNames = await fs.readdir(dirname)
-                              .catch((_) => {
-                                console.log('File not found');
+                              .catch((err) => {
+                                console.log('Dir not found');
                                 error = true;
                               });
   if (!error) {
