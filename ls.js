@@ -18,15 +18,21 @@ function blockPath(filePath) {
 }
 
 async function ls(dirname) {
-  const fileNames = await fs.readdir(dirname);
-
-  for (const fileName of fileNames) {
-    const filePath = path.join(dirname, fileName);
-    const stat = await fs.stat(filePath);
-    if (!stat.isDirectory() || blockPath(filePath)) {
-      console.log(filePath);
-    } else if (R !== undefined) {
-      await ls(filePath);
+  let error = false;
+  const fileNames = await fs.readdir(dirname)
+                              .catch((_) => {
+                                console.log('File not found');
+                                error = true;
+                              });
+  if (!error) {
+    for (const fileName of fileNames) {
+      const filePath = path.join(dirname, fileName);
+      const stat = await fs.stat(filePath);
+      if (!stat.isDirectory() || blockPath(filePath)) {
+        console.log(filePath);
+      } else if (R !== undefined) {
+        await ls(filePath);
+      }
     }
   }
 }
