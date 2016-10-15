@@ -17,7 +17,7 @@ function blockPath(filePath) {
   return false;
 }
 
-async function ls(dirname) {
+async function ls(dirname, paths) {
   let error = false;
   const fileNames = await fs.readdir(dirname)
                               .catch((err) => {
@@ -29,16 +29,17 @@ async function ls(dirname) {
       const filePath = path.join(dirname, fileName);
       const stat = await fs.stat(filePath);
       if (!stat.isDirectory() || blockPath(filePath)) {
-        console.log(filePath);
+        paths.push(filePath);
       } else if (R !== undefined) {
-        await ls(filePath);
+        await ls(filePath, paths);
       }
     }
+    return paths;
   }
 }
 
 async function main() {
-  await ls(dir);
+  console.log((await ls(dir,[])).join('\n'));
 }
 
 main();
