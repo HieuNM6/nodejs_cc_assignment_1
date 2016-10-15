@@ -19,19 +19,28 @@ function blockPath(filePath) {
 
 async function ls(dirname, paths) {
   let error = false;
-  const fileNames = await fs.readdir(dirname)
-                              .catch((err) => {
-                                console.log('Dir not found');
-                                error = true;
-                              });
+  let stat = await fs.stat(dirname)
+                        .catch((err) => {
+                          console.log("Directory not found");
+                          error = true;
+                        });
+
   if (!error) {
-    for (const fileName of fileNames) {
-      const filePath = path.join(dirname, fileName);
-      const stat = await fs.stat(filePath);
-      if (!stat.isDirectory() || blockPath(filePath)) {
-        paths.push(filePath);
-      } else if (R !== undefined) {
-        await ls(filePath, paths);
+    const fileNames = await fs.readdir(dirname)
+                                .catch((err) => {
+                                  console.log(`${dirname} is a File`);
+                                  error = true
+                                });
+    if (!error) {
+      for (const fileName of fileNames) {
+        const filePath = path.join(dirname, fileName);
+        stat = await fs.stat(filePath);
+        if (!stat.isDirectory() || blockPath(filePath)) {
+          paths.push(filePath);
+        } else if (R !== undefined) {
+          paths.push(filePath);
+          await ls(filePath, paths);
+        }
       }
     }
     return paths;
@@ -39,7 +48,10 @@ async function ls(dirname, paths) {
 }
 
 async function main() {
-  console.log((await ls(dir,[])).join('\n'));
+  let lsOutput = await ls(dir, [])
+  if (lsOutput) {
+    console.log(lsOutput.join('\n'));
+  }
 }
 
 main();
