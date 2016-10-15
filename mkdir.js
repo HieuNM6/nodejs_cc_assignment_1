@@ -4,12 +4,35 @@ require('./helper')
 const fs = require('fs').promise
 
 async function mkdir(path) {
-  await fs.mkdir(path)
-    .catch((err) => {
-      if (err.code === 'EEXIST') {
-        console.log('Directory has existed');
-      }
-    });
+  if (path) {
+    await fs.mkdir(path)
+      .catch((err) => {
+        if (err.code === 'EEXIST') {
+          console.log('Directory has existed');
+        }
+      });
+  }
 }
 
-process.argv[2] ? mkdir(process.argv[2].split('/')[1]) : console.log('Missing directory name')
+function removeDot(paths) {
+  if (paths[0] === '.' || paths[0] === '') {
+    return paths.splice(1)
+  }
+  return paths
+}
+
+async function recursiveMkdir(paths) {
+  let lastPath = '';
+  for (let i = 0; i < paths.length; i++) {
+    if (i === 0) {
+      await mkdir(paths[i])
+      lastPath += paths[i]
+    } else {
+      await mkdir(lastPath + '/' + paths[i])
+      lastPath += '/' + paths[i]
+    }
+  }
+}
+
+
+process.argv[2] ? recursiveMkdir(removeDot(process.argv[2].split('/'))) : console.log('Missing directory name')
