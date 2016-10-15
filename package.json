@@ -2,6 +2,14 @@
   "name": "nodejs-clis",
   "version": "1.1.0",
   "description": "A collection of CLI utilities",
+  "bin": {
+   "cli-echo": "./echo.js" ,
+   "cli-ls": "./ls.js",
+   "cli-mkdir": "./mkdir.js",
+   "cli-touch": "./touch.js",
+   "cli-rm": "./rm.js",
+   "cli-cat": "./cat.js"
+  },
   "scripts": {
     "test": "mocha --compilers js:babel-register test/spec",
     "dev": "run-p watch:test watch:lint",
@@ -11,14 +19,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/CrabDude/nodejs-clis.git"
+    "url": "git://HieuNM6/nodejs_cc_assignment_1.git"
   },
-  "author": "Adam Crabtree",
+  "author": "HieuNM6",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/CrabDude/nodejs-clis/issues"
+    "url": "https://github.com/HieuNM6/nodejs_cc_assignment_1"
   },
-  "homepage": "https://github.com/CrabDude/nodejs-clis#readme",
+  "homepage": "https://github.com/HieuNM6/nodejs_cc_assignment_1#readme",
   "dependencies": {
     "babel-cli": "^6.16.0",
     "babel-preset-nodev6": "^1.0.0",
