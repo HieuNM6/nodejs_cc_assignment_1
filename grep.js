@@ -25,6 +25,8 @@ async function grep(args) {
           console.log(line);
         }
       })
+    } else {
+      console.log(`${args[1]} is a directory`);
     }
   }
 }
