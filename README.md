@@ -2,7 +2,7 @@
 
 This is a CLI Utilities library for Node.js.
 
-Time spent: `10 hours`
+Time spent: `12 hours`
 
 ## Features
 
@@ -21,8 +21,8 @@ Time spent: `10 hours`
 ### Optionals
 
 - [x] `ln.js` creates a symlink from the second argument to the first argument
-- [ ] `grep.js` prints lines matching the first argument in the files matching the second argument
-- [ ] `grep.js` supports a regex as the second arguments
+- [x] `grep.js` prints lines matching the first argument in the files matching the second argument
+- [x] `grep.js` supports a regex as the second arguments
 
 ## Walkthrough Gif:
 
