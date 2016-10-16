@@ -8,7 +8,8 @@
    "cli-mkdir": "./mkdir.js",
    "cli-touch": "./touch.js",
    "cli-rm": "./rm.js",
-   "cli-cat": "./cat.js"
+   "cli-cat": "./cat.js",
+   "cli-ln": "./ln.js"
   },
   "scripts": {
     "test": "mocha --compilers js:babel-register test/spec",
