@@ -9,7 +9,8 @@
    "cli-touch": "./touch.js",
    "cli-rm": "./rm.js",
    "cli-cat": "./cat.js",
-   "cli-ln": "./ln.js"
+   "cli-ln": "./ln.js",
+   "cli-grep": "./grep.js"
   },
   "scripts": {
     "test": "mocha --compilers js:babel-register test/spec",
