@@ -5,12 +5,6 @@ const fs = require('fs').promise;
 const fs2 = require('fs');
 const readline = require('readline');
 
-let argvs;
-
-if (process.argv[2] && process.argv[3]) {
-  argvs = [process.argv[2], process.argv[3]];
-}
-
 async function grep(args) {
   const stat = await fs.stat(args[1]).catch((err) => {
     console.log(`File '${args[1]}' not found`);
@@ -31,4 +25,12 @@ async function grep(args) {
   }
 }
 
-argvs ? grep(argvs) : console.log('Missing parameter')
+function main() {
+  if (process.argv[2] && process.argv[3]) {
+    grep([process.argv[2], process.argv[3]]);
+  } else {
+    console.log('Missing parameter');
+  }
+}
+
+main();

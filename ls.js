@@ -21,7 +21,7 @@ async function ls(dirname, paths) {
   let error = false;
   let stat = await fs.stat(dirname)
                         .catch((err) => {
-                          console.log("Directory not found");
+                          console.log('Directory not found');
                           error = true;
                         });
 
@@ -43,12 +43,12 @@ async function ls(dirname, paths) {
         }
       }
     }
-    return paths;
   }
+  return paths;
 }
 
 async function main() {
-  let lsOutput = await ls(dir, [])
+  const lsOutput = await ls(dir, [])
   if (lsOutput) {
     console.log(lsOutput.join('\n'));
   }

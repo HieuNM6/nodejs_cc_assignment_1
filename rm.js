@@ -32,8 +32,8 @@ async function ls(dirname, paths) {
         await ls(filePath, paths);
       }
     }
-    return paths;
   }
+  return paths;
 }
 
 async function rm(name) {
@@ -41,13 +41,13 @@ async function rm(name) {
     .catch((err) => console.log('File or Directory not found'));
   if (stat) {
     if (stat.isDirectory()) {
-      let files = await ls(name, [])
+      const files = await ls(name, [])
       for (const file of files) {
         stat = await fs.stat(file).catch((err) => undefined)
         if (stat) {
           if (stat.isDirectory()) {
             await rm(file);
-          } else if(stat.isFile()) {
+          } else if (stat.isFile()) {
             await fs.unlink(file);
           }
         }
@@ -58,6 +58,13 @@ async function rm(name) {
     }
   }
 }
+function main() {
+  if (process.argv[2]) {
+    rm(process.argv[2])
+  } else {
+    console.log('Missing file or folder argument')
+  }
+}
 
-process.argv[2] ? rm(process.argv[2]) : console.log("Missing file or folder argument")
+main()
 

@@ -16,9 +16,17 @@ async function cat() {
     if (stat.isDirectory()) {
       console.log(`${fileName} is a directory`);
     } else {
-      console.log((await fs.readFile(fileName)).toString())
+      console.log((await fs.readFile(fileName)).toString());
     }
   }
 }
 
-fileName ? cat() : console.log('Missing file name')
+function main() {
+  if (fileName) {
+    cat();
+  } else {
+    console.log('Missing file name');
+  }
+}
+
+main();

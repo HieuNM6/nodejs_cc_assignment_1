@@ -34,5 +34,12 @@ async function recursiveMkdir(paths) {
   }
 }
 
+function main() {
+  if (process.argv[2]) {
+    recursiveMkdir(removeDot(process.argv[2].split('/')));
+  } else {
+    console.log('Missing directory name');
+  }
+}
 
-process.argv[2] ? recursiveMkdir(removeDot(process.argv[2].split('/'))) : console.log('Missing directory name')
+main();
